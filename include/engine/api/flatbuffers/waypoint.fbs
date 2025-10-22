@@ -16,4 +16,5 @@ table Waypoint {
     waypoint_index: uint; //Used by 'Match' and 'Trip' services
     alternatives_count: uint; //Used only by 'Match' service
     trips_index: uint; //Used only by 'Trip' service
+    bearing: short; //Used by 'Match' service - direction of travel along matched segment (0-359 degrees, 0=North)
 }

@@ -147,6 +147,10 @@ class MatchAPI final : public RouteAPI
             waypoint->add_matchings_index(matching_index.sub_matching_index);
             waypoint->add_alternatives_count(sub_matchings[matching_index.sub_matching_index]
                                                  .alternatives_count[matching_index.point_index]);
+            // Add bearing based on the phantom node's segment bearing
+            // The bearing represents the direction of travel along the matched segment
+            // Use GetBearing(false) as we want forward direction along the segment
+            waypoint->add_bearing(phantom.GetBearing(false));
             // waypoint indices need to be adjusted if route legs were collapsed
             // waypoint parameter assumes there is only one match object
             if (!parameters.waypoints.empty())
@@ -203,6 +207,10 @@ class MatchAPI final : public RouteAPI
             waypoint.values.emplace("alternatives_count",
                                     sub_matchings[matching_index.sub_matching_index]
                                         .alternatives_count[matching_index.point_index]);
+            // Add bearing based on the phantom node's segment bearing
+            // The bearing represents the direction of travel along the matched segment
+            // Use GetBearing(false) as we want forward direction along the segment
+            waypoint.values.emplace("bearing", phantom.GetBearing(false));
             // waypoint indices need to be adjusted if route legs were collapsed
             // waypoint parameter assumes there is only one match object
             if (!parameters.waypoints.empty())
